@@ -10,5 +10,5 @@ import modules.module2
 # Invoke functions
 modules.module1.func1()
 modules.module2.func2()
-modules.ingest_data.ingest_data()
+# modules.ingest_data.ingest_data()
 

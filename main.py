@@ -1,14 +1,14 @@
 
 # Import test_directory package
-import test_directory
+import modules
 
 # Import modules
-import test_directory.module1
-import test_directory.module2
-import test_directory.ingest_data
+import modules.module1
+import modules.module2
+import modules.ingest_data
 
 # Invoke functions
-test_directory.module1.func1()
-test_directory.module2.func2()
-test_directory.ingest_data.ingest_data()
+modules.module1.func1()
+modules.module2.func2()
+modules.ingest_data.ingest_data()
 

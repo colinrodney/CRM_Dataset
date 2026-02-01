@@ -38,7 +38,6 @@ def validate_schema(df_2):
         print("All values found in DataFrame!")
     else:
         raise ValueError(f"Missing columns from dataset: {missing_columns}")
-    return df_2
 
 # DO NOT DELETE
 # def validate_schema(df_2):

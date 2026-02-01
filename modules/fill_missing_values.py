@@ -16,4 +16,5 @@ def fill_missing_values(df_2):
         # # All other empty fields filled w/ np.nan
         # # df_2 = df_2.fillna("NONE_NEW")
         # df_2 = df_2.fillna(np.nan)
+        print(df_2)
         return df_2

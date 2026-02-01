@@ -13,7 +13,7 @@ def drop_duplicates(df_2):
 # API guidance: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
 def show_duplicates(df_2):
     try:
-        df_2["IS_DUPLICATE"]=df_2.duplicates(subset=["email"], keep="first", inplace=True)
+        df_2["IS_DUPLICATE"]=df_2.duplicated(subset=["email"], keep="first", inplace=True)
     except:
         print("An error ocurred in duplicates.show_duplicates() function")
     return df_2

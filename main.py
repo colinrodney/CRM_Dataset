@@ -9,6 +9,6 @@ import modules.ingest_data
 
 # Invoke functions
 # modules.module1.func1()
-modules.ingest_data.ingest_data()
-modules.fill_missing_values.fill_missing_values()
+df_2 = modules.ingest_data.ingest_data()
+modules.fill_missing_values.fill_missing_values(df_2)
 

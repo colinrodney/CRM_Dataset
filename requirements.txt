@@ -1,6 +1,5 @@
 pandas
 openpyxl
 xlrd
-os
 re
 numpy

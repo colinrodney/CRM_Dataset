@@ -26,8 +26,8 @@ def ingest_data():
              print("EXCEPTION -os module import not successfull.")
         else:
             # DEFINE INPUT / OUPUT DIRECTORIES
-            input_folder = r"../data/raw_data" 
-            output_folder = r"../data/cleaned_data"
+            input_folder = r"data/raw_data" 
+            output_folder = r"data/cleaned_data"
 
             # Create output folder if it doesn't exist
             os.makedirs(output_folder, exist_ok=True)

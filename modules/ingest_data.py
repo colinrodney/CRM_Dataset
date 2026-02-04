@@ -26,8 +26,8 @@ def ingest_data():
              print("EXCEPTION -os module import not successfull.")
         else:
             # DEFINE INPUT / OUPUT DIRECTORIES
-            input_folder = "data/raw_data"
-            output_folder = "cleaned_data"
+            input_folder = r"data/raw_data" 
+            output_folder = r"data/cleaned_data"
 
             # Create output folder if it doesn't exist
             os.makedirs(output_folder, exist_ok=True)
@@ -50,5 +50,5 @@ def ingest_data():
             output_path = os.path.join(output_folder, f"cleaned_{filename}")
             print("OUTPUT_PATH: " '\n', output_path)
             df_2.to_csv(output_path, index=False)
-            
+
             return df_2

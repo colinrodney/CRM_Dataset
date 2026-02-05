@@ -34,8 +34,8 @@ def dispense_data(df_2, filename):
         #     df_2.info()
         #     print("ingest data function ran successfully! RETURNING file to function!")
 
-                # output_path = os.path.join(output_folder, f"cleaned_{filename}")
-                # print("OUTPUT_PATH: " '\n', output_path)
+                output_path = os.path.join(output_folder, f"cleaned_{filename}")
+                print("OUTPUT_PATH: " '\n', output_path)
                 df_2.to_csv(output_folder, index=False)
 
                 return df_2

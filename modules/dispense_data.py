@@ -12,8 +12,9 @@ def dispense_data(df_2, filename):
         else:
             # DEFINE INPUT / OUPUT DIRECTORIES
             # input_folder = r"data/raw_data" 
-            # output_folder = r"data/cleaned_data"
-            output_folder = r"C:\Users\Cessn\OneDrive\Desktop\data_cleansing_automations\CRM_Dataset\data\cleaned_data"
+            # # output_folder = r"data/cleaned_data"
+            # output_folder = r"C:\Users\Cessn\OneDrive\Desktop\data_cleansing_automations\CRM_Dataset\data\cleaned_data"
+            output_folder = r"C:\Users\Cessn\OneDrive\Desktop\data_cleansing_automations\CRM_Dataset\data\cleaned_data\cleaned_messy_crm_dataset_after_cleansing.csv"
 
             # Create output folder if it doesn't exist
             if not os.path.exists(output_folder):

@@ -8,22 +8,37 @@ jobs:
   clean:
     runs-on: ubuntu-latest
 
-    steps:
+    steps: 
+      # Step 1 Checkout code in repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # Step 2 Setup Python environment
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12.3"
-
-      - uses: actions/checkout@v4
+      
+      # Step 3 Install Dependencies
       - name: Install Project Dependencies
         run: pip3 install -r requirements.txt
 
+      # Step 5 - Run Processing Script to generate .csv file in output directory
+      - name: Run Data Processing Script
+        run: python modules/dispense_data.py
+
+      # Step 6 - Upload generated .csv file as artifact for later use
+      - name: Upload Output CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleaned-data-file
+          path: data/cleaned_data 
+
+      # Step 4 Run Scripts
       - name: Run Python script (CI/CD Testing)
         run: python main.py
-        # working-directory (OPTIONAL- Commands script execution in specified directory.)
+
+      # working-directory (OPTIONAL- Commands script execution in specified directory.)
 
 
       

@@ -23,9 +23,13 @@ jobs:
       - name: Install Project Dependencies
         run: pip3 install -r requirements.txt
 
-      # Step 5 - Run Processing Script to generate .csv file in output directory
-      - name: Run Data Processing Script
-        run: python modules/dispense_data.py
+      # Step 4 Run Scripts
+      - name: Run Python script (CI/CD Testing)
+        run: python main.py
+
+      # # Step 5 - Run Processing Script to generate .csv file in output directory
+      # - name: Run Data Processing Script
+      #   run: python modules/dispense_data.py
 
       # Step 6 - Upload generated .csv file as artifact for later use
       - name: Upload Output CSV
@@ -34,9 +38,6 @@ jobs:
           name: cleaned-data-file
           path: data/cleaned_data 
 
-      # Step 4 Run Scripts
-      - name: Run Python script (CI/CD Testing)
-        run: python main.py
 
       # working-directory (OPTIONAL- Commands script execution in specified directory.)
 

@@ -2,7 +2,7 @@ def dispense_data(df_2, filename):
     import os
         
     # output_folder = r"C:\Users\Cessn\OneDrive\Desktop\data_cleansing_automations\CRM_Dataset\data\cleaned_data\cleaned_messy_crm_dataset_after_cleansing.csv"
-    output_folder = r"data/cleaned_data"
+    output_folder = r"data/cleaned_data/cleaned_messy_crm_dataset_after_cleansing.csv"
 
     try:
         # Create output folder if it doesn't exist already

@@ -6,7 +6,8 @@ def fill_missing_values(df_2):
         print("EXCEPTION - numpy import not successfull.")
     else:
         df_2 = df_2.replace("nan", np.nan)
-        df_2['email'] = df_2['email'].fillna("unknown")
+        # df_2['email'] = df_2['email'].fillna("unknown")
+        df_2 = df_2.fillna("UNKNOWN")
         # df_2["phone_number"] = df_2["phone_number"].replace("nan", np.nan)
         # df_2["mobile_phone"] = df_2["mobile_phone"].fillna("NONE")
         # df_2["office_phone"] = df_2["office_phone"].fillna("NONE")

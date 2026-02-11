@@ -11,7 +11,7 @@ def standardize_phone_numbers(df_2):
     # REMOVE ALL NON-DIGIT CHARS FROM PHONE NUMBERS
     # Overwrite the original phone number column with the cleaned version
     # df_2["columnName"] = df_2["columnName"].apply(lambda x: re.sub(r'[(),\s\.\-]', '', x))
-    df_2["phone_number"] = df_2["phone_number"].apply(lambda x: re.sub(r'[(),\s\.\-]', '', x))
+    df_2["phone_number"] = df_2["phone_number"].apply(lambda x: re.sub(r'[(),\s\.\-]', ''))
 
 
     # # REMOVE +1 FROM BEGINNING OF PHONE NUMBERS

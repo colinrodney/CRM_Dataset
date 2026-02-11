@@ -4,7 +4,10 @@ def standardize_phone_numbers(df_2):
     # IMPORT REGEX MODULE
     import re
     phone_number_pattern = re.compile(r"[\+\s\(\)-.]")
-    
+
+    #Show data type of phone number column
+    df_2.info()
+
     # REMOVE ALL NON-DIGIT CHARS FROM PHONE NUMBERS
     # Overwrite the original phone number column with the cleaned version
     # df_2["columnName"] = df_2["columnName"].apply(lambda x: re.sub(r'[(),\s\.\-]', '', x))

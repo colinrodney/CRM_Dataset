@@ -3,7 +3,7 @@ def standardize_phone_numbers(df_2):
 
     # IMPORT REGEX MODULE
     import re
-    phone_number_pattern = re.compile(r"[\+\s\(\)-.]")
+    phone_number_pattern = re.compile(r"[\+\s\(\)\-\.]")
 
     #Show data type of phone number column
     df_2.info()

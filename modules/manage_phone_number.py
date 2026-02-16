@@ -46,8 +46,8 @@ def standardize_phone_numbers(df_2):
     # Ensure the column exists and convert to string to avoid 'NoneType' errors
     if "phone_number" in df_2.columns:
         # 1. Strip all non-digit characters
-        # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[(),\s\.\-]', '', regex=True)
-        df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True)
+        df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[(),\s\.\-,\+]', '', regex=True)
+        # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True)
 
         # 2. Add +1 using back-references (\1\2\3)
         # We look for 10 digits and wrap them in groups

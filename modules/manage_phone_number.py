@@ -47,14 +47,17 @@ def standardize_phone_numbers(df_2):
     if "phone_number" in df_2.columns:
         # 1. Strip all non-digit characters
         df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[(),\s\.\-,\+]', '', regex=True)
+
+        # 2. Clean: Collapse leading 1s (Captures numbers such as 11056744898 and converts them to 1056744898)
+        df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(r'^1+', '1', regex=True)
         
         # Check that first 2 digits of phone number are not 10 which indicates an invalid country code
         # NOTE tilde (~) is used to negate the condition, so it returns True for valid phone numbers and False for invalid ones
         df_2['is_valid_phone_number'] = ~df_2['phone_number'].astype(str).str.startswith('10')
 
-        # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True)
+        # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True) DO NOT DELETE!
 
-        # 2. Add +1 using back-references (\1\2\3)
+        # 3. Add +1 using back-references (\1\2\3)
         # We look for 10 digits and wrap them in groups
         search_pattern = r"(\d{3})(\d{3})(\d{4})"
         replacement = r"+1\1\2\3"

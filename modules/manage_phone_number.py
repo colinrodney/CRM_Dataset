@@ -47,6 +47,11 @@ def standardize_phone_numbers(df_2):
     if "phone_number" in df_2.columns:
         # 1. Strip all non-digit characters
         df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[(),\s\.\-,\+]', '', regex=True)
+        
+        # Check that first 2 digits of phone number are not 10 which indicates an invalid country code
+        # NOTE tilde (~) is used to negate the condition, so it returns True for valid phone numbers and False for invalid ones
+        df_2['is_valid_phone_number'] = ~df_2['phone_number'].astype(str).str.startswith('10')
+
         # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True)
 
         # 2. Add +1 using back-references (\1\2\3)

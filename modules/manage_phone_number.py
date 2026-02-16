@@ -65,6 +65,6 @@ def standardize_phone_numbers(df_2):
         #     df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(r'^1+', '1', regex=True)
             
 
-        df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement, regex=True)
+            df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement, regex=True)
 
     return df_2

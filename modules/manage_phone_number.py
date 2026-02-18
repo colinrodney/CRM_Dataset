@@ -53,7 +53,8 @@ def standardize_phone_numbers(df_2):
         # tilde (~ bitwise NOT operator in Python) - used to negate a condition. Returns True for valid phone numbers / False for invalid numbers
         # df_2['phone_number_starts_with_0'] = ~df_2['phone_number'].astype(str).str.startswith('0') # True = INVALID / False = VALID
 
-        df_2['phone_number_starts_with_0'] = lambda phone_num: True if phone_num.astype(str).str.startswith('0') else False
+        # df_2['phone_number_starts_with_0'] = lambda phone_num: True if phone_num.astype(str).str.startswith('0') else False
+        df_2['phone_number_starts_with_0'] = df_2["phone_number"].astype(str).str.startswith('0')
  
         # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True) DO NOT DELETE!
 

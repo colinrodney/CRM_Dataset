@@ -58,6 +58,9 @@ def standardize_phone_numbers(df_2):
  
         # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True) DO NOT DELETE!
 
+        #3 Check length of phone numbers (Valid phone numbers should be between 10 and 15 digits long, depending on country code)
+        df_2['phone_number_length'] = df_2["phone_number"].astype(str).str.len() # expect numeric result 
+
         # 3. Add +1 using back-references (\1\2\3) for numbers that do not already start with 1 (to avoid adding +1 to numbers that already have it)
         # We look for 10 digits and wrap them in groups
         # search_pattern = r"(\d{3})(\d{3})(\d{4})"

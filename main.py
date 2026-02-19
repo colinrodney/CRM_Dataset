@@ -19,7 +19,13 @@ df_2 = modules.duplicates.show_duplicates(df_2)
 # df_2 = modules.duplicates.drop_duplicates()
 df_2 = modules.email_validate.email_formatted_properly(df_2)
 df_2 = modules.fill_missing_values.fill_missing_values(df_2)
+
+# items from manage_phone_number module
+
+# standardize phone numbers
 df_2 = modules.manage_phone_number.standardize_phone_numbers(df_2)
+# phone number parse, validate, convert to E164
+df_2 = modules.manage_phone_number.parse_phone_numbers(df_2)
 
 # dispense_data() accepts dataframe and filename as arguments from ingest_data()
 modules.dispense_data.dispense_data(df_2, filename)

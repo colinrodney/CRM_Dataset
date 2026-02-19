@@ -76,3 +76,19 @@ def standardize_phone_numbers(df_2):
         df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement, regex=True)
 
     return df_2
+
+
+# BEGIN WORKING WIITH GOOGLE PHONENUMBER LIBRARY FOR E164 CONVERSIONS ETC.
+def parse_phone_numbers(df_2):
+    import phonenumbers
+    import pandas as pd
+
+    # Ensure the column exists and convert to string to avoid 'NoneType' errors
+    if "phone_number" in df_2.columns:
+        # Parse phone numbers using phonenumbers library
+        df_2["parsed_phone_number"] = df_2["phone_number"].apply(lambda x: phonenumbers.parse(x, None) if pd.notnull(x) else None)
+
+        # Format parsed phone numbers in E164 format
+        df_2["formatted_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.E164) if x is not None else None)
+
+    return df_2

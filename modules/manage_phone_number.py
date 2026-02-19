@@ -85,10 +85,13 @@ def parse_phone_numbers(df_2):
 
     # Ensure the column exists and convert to string to avoid 'NoneType' errors
     if "phone_number" in df_2.columns:
-        # Parse phone numbers using phonenumbers library
+        # Parse phone numbers using phonenumbers library - expect boolean value returned
         df_2["parsed_phone_number"] = df_2["phone_number"].apply(lambda x: phonenumbers.parse(x, None) if pd.notnull(x) else None)
 
+        # Validate parsed phone numbers - expect boolean value returned
+        df_2["is_valid_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.is_valid_number(x) if x is not None else False)
+
         # Format parsed phone numbers in E164 format
-        df_2["formatted_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.E164) if x is not None else None)
+        df_2["E164_formatted_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.E164) if x is not None else None)
 
     return df_2

@@ -98,4 +98,7 @@ def parse_phone_numbers(df_2):
         # Format parsed phone numbers in E164 format
         df_2["E164_formatted_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.E164) if x is not None else None)
 
+        # Possible Phone Number
+        df_2["possible_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.is_possible_number(x))
+
     return df_2

@@ -57,7 +57,7 @@ def standardize_phone_numbers(df_2):
 
         if df_2["phone_number"].str.startswith("0").any():
             df_2["phone_number"] = df_2["phone_number"].str.replace("0", "", regex=False) #replace 0 w/ nothing
-            df_2["phone_number"].strip() # strip whitespace (all sides)
+            df_2["phone_number"].str.strip() # strip whitespace (all sides)
             # # flag number as starting w/ 0
             # df_2['phone_number_starts_with_0'] = df_2["phone_number"].astype(str).str.startswith('0')
         # elif ~df_2["phone_number"].str.startswith("1").any():

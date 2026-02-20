@@ -71,7 +71,7 @@ def standardize_phone_numbers(df_2):
         if df_2["phone_number"].str.startswith("1").any():
             df_2['num_starts_with_1'] = df_2["phone_number"].astype(str).str.startswith('1') #expect boolean result
             df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement_One, regex=True)
-        else:
+        elif ~df_2["phone_number"].str.startswith("1").any():
             # 2. Clean: Collapse leading 1s (Captures numbers such as 11056744898 and converts them to 1056744898)
             # df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(r'^1+', '1', regex=True)
             df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(search_pattern, replacement_plusOne, regex=True)

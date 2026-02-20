@@ -54,30 +54,48 @@ def standardize_phone_numbers(df_2):
         # df_2['phone_number_starts_with_0'] = ~df_2['phone_number'].astype(str).str.startswith('0') # True = INVALID / False = VALID
 
         # df_2['phone_number_starts_with_0'] = lambda phone_num: True if phone_num.astype(str).str.startswith('0') else False
-        df_2['phone_number_starts_with_0'] = df_2["phone_number"].astype(str).str.startswith('0')
- 
-        # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True) DO NOT DELETE!
 
-        #3 Check length of phone numbers (Valid phone numbers should be between 10 and 15 digits long, depending on country code)
-        df_2['phone_number_length'] = df_2["phone_number"].astype(str).str.len() # expect numeric result 
+        if df_2["phone_number"].str.startswith("0").any():
+            df_2["phone_number"] = df_2["phone_number"].str.replace("0", "", regex=False) #replace 0 w/ nothing
+            df_2["phone_number"].strip() # strip whitespace (all sides)
+            # # flag number as starting w/ 0
+            # df_2['phone_number_starts_with_0'] = df_2["phone_number"].astype(str).str.startswith('0')
+        # elif ~df_2["phone_number"].str.startswith("1").any():
+        #     # 2. Clean: Collapse leading 1s (Captures numbers such as 11056744898 and converts them to 1056744898)
+        #     # df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(r'^1+', '1', regex=True)
+        #     df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(search_pattern, replacement_plusOne, regex=True)
 
-        # 3. Add +1 using back-references (\1\2\3) for numbers that do not already start with 1 (to avoid adding +1 to numbers that already have it)
-        # We look for 10 digits and wrap them in groups
-        # search_pattern = r"(\d{3})(\d{3})(\d{4})"
-        search_pattern = r"(\d+)"
-        replacement_plusOne = r"+1\1"
-        replacement_One = r"+\1"
-        # replacement = r"+1\1\2\3"
-        if df_2["phone_number"].str.startswith("1").any():
-            df_2['num_starts_with_1'] = df_2["phone_number"].astype(str).str.startswith('1') #expect boolean result
-            df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement_One, regex=True)
-        elif ~df_2["phone_number"].str.startswith("1").any():
-            # 2. Clean: Collapse leading 1s (Captures numbers such as 11056744898 and converts them to 1056744898)
-            # df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(r'^1+', '1', regex=True)
-            df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(search_pattern, replacement_plusOne, regex=True)
+        # Number string starts with 1, but does not have + in front of it - add ONLY a + to beginning of number
+        elif df_2["phone_number"].str.startswith("1").any():
+            search_pattern = r"(\d+)"
+            # replacement_plusOne = r"+1\1"
+
+            # back reference capturing number group and adding ONLY a + in front of number string already starting with 1
+            replacement_add_Only_Plus = r"+\1"
+            # replacement_One = r"+\1" 
+            df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(search_pattern, replacement_add_Only_Plus, regex=True)
+        # Number string starts with any number other than 1 or 0 (all other conditions) - DO SAME CODE AS IN ELIF BLOCK!
+        else:
+            search_pattern = r"(\d+)"
+            # replacement_plusOne = r"+1\1"
+
+            # back reference capturing number group and adding ONLY a + in front of number string already starting with 1
+            replacement_add_Only_Plus = r"+\1"
+            # replacement_One = r"+\1" 
+            df_2['phone_number'] = df_2['phone_number'].astype(str).str.replace(search_pattern, replacement_add_Only_Plus, regex=True)
+
+    #  # df_2["phone_number"] = df_2["phone_number"].astype(str).str.replace(r'[\D]', '', regex=True) DO NOT DELETE!
+
+    #     #3 Check length of phone numbers (Valid phone numbers should be between 10 and 15 digits long, depending on country code)
+    #     df_2['phone_number_length'] = df_2["phone_number"].astype(str).str.len() # expect numeric result 
+
+    #     # 3. Add +1 using back-references (\1\2\3) for numbers that do not already start with 1 (to avoid adding +1 to numbers that already have it)
+    #     # We look for 10 digits and wrap them in groups
+    #     # search_pattern = r"(\d{3})(\d{3})(\d{4})"
+        
             
 
-        # df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement, regex=True)
+    #     # df_2["phone_number"] = df_2["phone_number"].str.replace(search_pattern, replacement, regex=True)
 
     return df_2
 

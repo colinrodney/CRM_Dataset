@@ -111,12 +111,16 @@ def parse_phone_numbers(df_2):
         
         # The Core Test: Does it start with '0'?
         if cc.startswith('0'):
-            return False
-        return True
+            df_2['is_valid_cc'] = df_2['phone_number'].apply(parse_phone_numbers) #False / No
+            # return False
+        df_2['is_valid_cc'] = df_2['phone_number'].apply(parse_phone_numbers) #True / Yes
     except:
         # If the number can't even be parsed, it's definitely not valid
-         return False
-df_2['is_valid_cc'] = df_2['phone_number'].apply(parse_phone_numbers)
+        df_2['cannot_parse'] = df_2['phone_number'].apply(parse_phone_numbers) #False / No
+        #  return False
+    return df_2
+
+
 
 # def parse_phone_numbers(df_2): DO NOT DELETE
 #     import phonenumbers

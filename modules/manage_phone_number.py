@@ -102,21 +102,42 @@ def standardize_phone_numbers(df_2):
 
 # BEGIN WORKING WIITH GOOGLE PHONENUMBER LIBRARY FOR E164 CONVERSIONS ETC.
 def parse_phone_numbers(df_2):
-    import phonenumbers
-    import pandas as pd
-
-    # Ensure the column exists and convert to string to avoid 'NoneType' errors
-    if "phone_number" in df_2.columns:
-        # Parse phone numbers using phonenumbers library - expect boolean value returned
-        df_2["parsed_phone_number"] = df_2["phone_number"].apply(lambda x: phonenumbers.parse(x, None) if pd.notnull(x) else None)
-
-        # Validate parsed phone numbers - expect boolean value returned
-        df_2["is_valid_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.is_valid_number(x) if x is not None else False)
-
-        # Format parsed phone numbers in E164 format
-        df_2["E164_formatted_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.E164) if x is not None else None)
-
-        # Possible Phone Number
-        df_2["possible_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.is_possible_number(x))
-
+    try:
+        # Parse the string (assuming international format with '+')
+        parsed_num = phonenumbers.parse(df_2['phone_number'], None)
+        
+        # Extract the Country Code (it returns an integer, e.g., 1 or 44)
+        cc = str(parsed_num.country_code)
+        
+        # The Core Test: Does it start with '0'?
+        if cc.startswith('0'):
+            df_2['is_valid_cc'] = df_2['phone_number'].apply(parse_phone_numbers) # False
+            # return False
+        df_2['is_valid_cc'] = df_2['phone_number'].apply(parse_phone_numbers) #True
+    except:
+        # If the number can't even be parsed, it's definitely not valid
+        df_2['cannot_parse'] = df_2['phone_number'].apply(parse_phone_numbers) # True/False depending on whether it can be parsed or not
+        # return False
+    
+    # df_2['is_valid_cc'] = df_2['phone_number'].apply(parse_phone_numbers)
     return df_2
+
+# def parse_phone_numbers(df_2): DO NOT DELETE
+#     import phonenumbers
+#     import pandas as pd
+
+#     # Ensure the column exists and convert to string to avoid 'NoneType' errors
+#     if "phone_number" in df_2.columns:
+#         # Parse phone numbers using phonenumbers library - expect boolean value returned
+#         df_2["parsed_phone_number"] = df_2["phone_number"].apply(lambda x: phonenumbers.parse(x, None) if pd.notnull(x) else None)
+
+#         # Validate parsed phone numbers - expect boolean value returned
+#         df_2["is_valid_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.is_valid_number(x) if x is not None else False)
+
+#         # Format parsed phone numbers in E164 format
+#         df_2["E164_formatted_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.format_number(x, phonenumbers.PhoneNumberFormat.E164) if x is not None else None)
+
+#         # Possible Phone Number
+#         df_2["possible_phone_number"] = df_2["parsed_phone_number"].apply(lambda x: phonenumbers.is_possible_number(x))
+
+#     return df_2
